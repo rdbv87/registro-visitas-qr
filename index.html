@@ -49,6 +49,7 @@
       display: none;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
   <div class="container">
@@ -113,3 +114,51 @@
   </script>
 </body>
 </html>
+
+<script>
+  const supabase = supabase.createClient(
+    "https://supabase.com/dashboard/project/iwmwbedwlfkutwtgxsio", // URL
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3bXdiZWR3bGZrdXR3dGd4c2lvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5Njk5MDEsImV4cCI6MjA2NjU0NTkwMX0.2tNDcPo_7NfrNCRwYwV1tctt5ojZJlg5CczTX7upg9k"     // anon key
+  );
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      alert("Error: " + error.message);
+    } else {
+      alert("¡Login exitoso!");
+      // Aquí puedes redirigir a otra página
+      // location.href = 'dashboard.html';
+    }
+  });
+
+  registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("register-name").value;
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: name }
+      }
+    });
+
+    if (error) {
+      alert("Error: " + error.message);
+    } else {
+      alert("¡Registro exitoso! Verifica tu correo.");
+    }
+  });
+</script>
+
