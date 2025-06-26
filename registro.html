@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Visitas</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    input, button { display: block; margin: 10px 0; padding: 8px; width: 100%; max-width: 400px; }
+    #qrcode { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Registro de Visita</h2>
+
+  <label>Nombre del visitante</label>
+  <input type="text" id="nombre" required />
+
+  <label>Fecha de la visita</label>
+  <input type="date" id="fecha" required />
+
+  <label>Hora estimada</label>
+  <input type="time" id="hora" required />
+
+  <label>Placa del vehículo</label>
+  <input type="text" id="placa" />
+
+  <button onclick="generarQR()">Generar Código QR</button>
+
+  <div id="qrcode"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    function generarQR() {
+      const nombre = document.getElementById("nombre").value;
+      const fecha = document.getElementById("fecha").value;
+      const hora = document.getElementById("hora").value;
+      const placa = document.getElementById("placa").value;
+
+      if (!nombre || !fecha || !hora) {
+        alert("Por favor, completa los campos requeridos.");
+        return;
+      }
+
+      const datos = {
+        nombre,
+        fecha,
+        hora,
+        placa
+      };
+
+      const datosString = JSON.stringify(datos);
+
+      document.getElementById("qrcode").innerHTML = "";
+      QRCode.toCanvas(
+        document.createElement("canvas"),
+        datosString,
+        { width: 256 },
+        (err, canvas) => {
+          if (err) return console.error(err);
+          document.getElementById("qrcode").appendChild(canvas);
+        }
+      );
+    }
+  </script>
+</body>
+</html>
