@@ -22,9 +22,7 @@
       width: 100%;
       max-width: 400px;
     }
-    h2 {
-      text-align: center;
-    }
+    h2 { text-align: center; }
     input {
       width: 100%;
       padding: 10px;
@@ -81,84 +79,9 @@
     const formTitle = document.getElementById("form-title");
     const toggleText = document.querySelector(".toggle");
 
-    function toggleForms() {
-      if (loginForm.style.display === "none") {
-        loginForm.style.display = "block";
-        registerForm.style.display = "none";
-        formTitle.innerText = "Iniciar sesión";
-        toggleText.innerText = "¿No tienes cuenta? Regístrate aquí";
-      } else {
-        loginForm.style.display = "none";
-        registerForm.style.display = "block";
-        formTitle.innerText = "Crear cuenta";
-        toggleText.innerText = "¿Ya tienes cuenta? Inicia sesión aquí";
-      }
-    }
+    const supabase = supabase.createClient(
+      "https://iwmwbedwlfkutwtgxsio.supabase.co", // ✅ URL correcta
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3bXdiZWR3bGZrdXR3dGd4c2lvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5Njk5MDEsImV4cCI6MjA2NjU0NTkwMX0.2tNDcPo_7NfrNCRwYwV1tctt5ojZJlg5CczTX7upg9k"
+    );
 
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("login-email").value;
-      const password = document.getElementById("login-password").value;
-      alert(`Login: ${email} / ${password}`);
-      // Aquí puedes conectar a backend o Firebase/Supabase
-    });
-
-    registerForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = document.getElementById("register-name").value;
-      const email = document.getElementById("register-email").value;
-      const password = document.getElementById("register-password").value;
-      alert(`Registro: ${name} / ${email} / ${password}`);
-      // Aquí puedes conectar a backend o Firebase/Supabase
-    });
-  </script>
-</body>
-</html>
-
-<script>
-  const supabase = supabase.createClient(
-    "https://supabase.com/dashboard/project/iwmwbedwlfkutwtgxsio", // URL
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3bXdiZWR3bGZrdXR3dGd4c2lvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5Njk5MDEsImV4cCI6MjA2NjU0NTkwMX0.2tNDcPo_7NfrNCRwYwV1tctt5ojZJlg5CczTX7upg9k"     // anon key
-  );
-
-  loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    if (error) {
-      alert("Error: " + error.message);
-    } else {
-      alert("¡Login exitoso!");
-      // Aquí puedes redirigir a otra página
-      // location.href = 'dashboard.html';
-    }
-  });
-
-  registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const name = document.getElementById("register-name").value;
-    const email = document.getElementById("register-email").value;
-    const password = document.getElementById("register-password").value;
-
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: name }
-      }
-    });
-
-    if (error) {
-      alert("Error: " + error.message);
-    } else {
-      alert("¡Registro exitoso! Verifica tu correo.");
-    }
-  });
-</script>
-
+    function tog
